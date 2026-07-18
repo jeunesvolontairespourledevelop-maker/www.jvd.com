@@ -1,0 +1,5 @@
+TITRE: Bienvenue sur la page Actualités de JVD
+DATE: 18 juillet 2026
+TEXTE: Cette page racontera chacune de nos actions de terrain : collectes, sessions de sensibilisation, reboisement, soutien scolaire... Remplacez ce texte par le récit de votre prochain événement.
+IMAGE:
+---
