@@ -2,7 +2,7 @@
    Fonctionne par reconnaissance de mots-clés dans les questions posées. */
 (function () {
   const KB = [
-    { kw: ["bonjour", "salut", "bonsoir", "coucou"], a: "Bonjour ! Je suis l'assistant virtuel de JVD 🌱 Pose-moi une question sur l'association : notre mission, comment nous rejoindre, ou comment nous contacter." },
+    { kw: ["bonjour", "salut", "bonsoir", "coucou"], a: "Bonjour ! Je suis Ousmane, l'assistant virtuel de JVD 🌱 Pose-moi une question sur l'association : notre mission, comment nous rejoindre, ou comment nous contacter." },
     { kw: ["jvd", "association", "qui êtes", "qui etes", "c'est quoi", "signifie"], a: "JVD signifie « Jeunes Volontaires pour le Développement ». C'est une association guinéenne basée à Conakry, portée par des jeunes engagés dans trois domaines : l'éducation, l'environnement et la santé." },
     { kw: ["mission", "objectif", "but"], a: "Notre mission est de montrer qu'une jeunesse guinéenne organisée peut transformer durablement son pays, à travers des actions concrètes en éducation, en environnement et en santé." },
     { kw: ["domaine", "action", "activité", "activités", "que faites"], a: "Nous intervenons sur trois domaines : 📚 Éducation (soutien scolaire, alphabétisation), 🌱 Environnement (reboisement, nettoyage), 🩺 Santé & action sociale (sensibilisation, soutien aux familles). Tu peux voir le détail sur la page « Nos actions »." },
@@ -14,6 +14,25 @@
     { kw: ["photo", "vidéo", "video", "galerie", "image"], a: "Tu trouveras nos photos et vidéos d'actions de terrain sur la page « Galerie »." },
     { kw: ["actualité", "actualites", "news", "événement", "evenement", "dernière action"], a: "Retrouve le récit de nos derniers événements sur la page « Actualités »." },
     { kw: ["merci", "ok", "d'accord", "super", "cool"], a: "Avec plaisir ! N'hésite pas si tu as une autre question 🙂" },
+
+    { kw: ["âge", "age minimum", "ans pour", "quel âge"], a: "Il faut avoir 18 ans minimum pour rejoindre JVD en tant que volontaire." },
+    { kw: ["étudiant", "etudiant", "travailleur", "employé", "profession", "diplôme", "diplome", "niveau d'études"], a: "Tout jeune motivé peut rejoindre JVD à partir de 18 ans, qu'il soit étudiant, salarié ou sans emploi — le niveau d'études ou la profession ne sont pas un frein." },
+    { kw: ["combien de temps", "heures par semaine", "disponibilité", "disponibilite"], a: "Il n'y a pas de nombre d'heures fixe imposé : ça dépend de ta disponibilité. On en discute ensemble lors de ta prise de contact." },
+    { kw: ["bénévolat", "benevolat", "rémunéré", "remunere", "salaire", "payé", "paye"], a: "Rejoindre JVD, c'est du volontariat non rémunéré : tu donnes de ton temps pour ta communauté, sans contrepartie financière." },
+    { kw: ["attestation", "certificat"], a: "Oui, JVD délivre une attestation de volontariat aux membres qui se sont engagés dans nos actions." },
+    { kw: ["expérience", "experience"], a: "Aucune expérience préalable n'est requise. La motivation et le sérieux comptent plus que l'expérience ou le diplôme." },
+    { kw: ["vacances", "période", "periode"], a: "Tu peux t'engager selon ta disponibilité, y compris pendant les vacances scolaires — parle-en avec l'équipe lors de ton inscription." },
+    { kw: ["groupe whatsapp", "groupe de volontaires", "communauté volontaires"], a: "Contacte-nous par email ou WhatsApp pour en savoir plus sur les espaces d'échange entre volontaires." },
+    { kw: ["prochaine action", "prochain événement", "prochain evenement", "quand la prochaine"], a: "Retrouve la prochaine action prévue sur notre page « Actualités », mise à jour après chaque événement." },
+    { kw: ["proposer une idée", "proposer une action", "suggestion"], a: "Oui, tu peux nous proposer une idée d'action ! Écris-nous par email ou WhatsApp, on est toujours ouverts aux propositions des volontaires." },
+    { kw: ["journée type", "journee type", "déroule", "deroule", "ça se passe comment"], a: "Sur le terrain, tu es encadré par un coordinateur de ton domaine (éducation, environnement ou santé) et tu participes aux activités prévues en équipe, avec les autres volontaires." },
+    { kw: ["qui dirige", "responsable", "président", "president", "fondateur"], a: "JVD est pilotée par un bureau exécutif et des coordinateurs pour chaque domaine d'action. Pour connaître les responsables actuels, contacte-nous directement." },
+    { kw: ["depuis quand", "création", "creation", "fondée", "fondee", "existe depuis"], a: "JVD est une jeune association en pleine croissance à Conakry. Pour l'histoire complète, va voir la page « À propos »." },
+    { kw: ["statut légal", "statut legal", "ong", "officiel", "reconnue"], a: "Pour toute question sur notre statut officiel, contacte-nous directement par email ou WhatsApp — on te donnera une réponse précise et à jour." },
+    { kw: ["facebook", "instagram", "tiktok", "réseaux sociaux", "reseaux sociaux", "réseau social"], a: "JVD sera bientôt présente sur Facebook, Instagram et TikTok — les liens seront ajoutés ici dès qu'ils seront en ligne. En attendant, contacte-nous par email ou WhatsApp." },
+    { kw: ["choisit ses actions", "comment décidez", "comment decidez", "choix des actions"], a: "Les coordinateurs de chaque domaine planifient les activités selon les besoins constatés sur le terrain et la disponibilité des volontaires." },
+    { kw: ["entreprise", "école", "ecole", "partenariat", "collaborer", "collaboration"], a: "Les entreprises et écoles qui souhaitent collaborer avec JVD peuvent nous écrire par email en précisant leur projet — l'équipe reviendra vers elles." },
+    { kw: ["don", "donation", "soutenir financièrement", "faire un don"], a: "Pour soutenir financièrement nos actions, contacte-nous par email ou WhatsApp — on discutera ensemble des modalités." },
   ];
 
   const FALLBACK = "Je n'ai pas la réponse à cette question précise. Écris-nous directement à jeunesvolontairespourledevelop@gmail.com ou sur WhatsApp au +224 625 32 84 50 — on te répondra avec plaisir.";
@@ -67,7 +86,7 @@
   panel.id = "jvd-assist-panel";
   panel.innerHTML = `
     <div id="jvd-assist-head">
-      <span>Assistant JVD</span>
+      <span>Ousmane · Assistant JVD</span>
       <button id="jvd-assist-close" aria-label="Fermer">✕</button>
     </div>
     <div id="jvd-assist-log"></div>
@@ -91,7 +110,7 @@
   btn.addEventListener("click", () => {
     panel.classList.toggle("open");
     if (!greeted && panel.classList.contains("open")) {
-      addMsg("Bonjour ! Je suis l'assistant virtuel de JVD 🌱 Pose-moi une question sur l'association, nos actions, ou comment nous rejoindre.", "bot");
+      addMsg("Bonjour ! Je suis Ousmane, l'assistant virtuel de JVD 🌱 Pose-moi une question sur l'association, nos actions, ou comment nous rejoindre.", "bot");
       greeted = true;
     }
   });
