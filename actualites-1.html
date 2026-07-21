@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités — JVD</title>
+<meta name="description" content="Suivez les actions récentes de JVD, Jeunes Volontaires pour le Développement, à Conakry.">
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .actu-list{display:flex;flex-direction:column;gap:22px;}
+  .actu-card{
+    background:var(--white);border-radius:var(--radius);overflow:hidden;
+    box-shadow:0 4px 16px rgba(28,35,30,.06);display:flex;flex-wrap:wrap;
+  }
+  .actu-card img{width:280px;flex:0 0 280px;height:220px;object-fit:cover;}
+  .actu-body{padding:26px 28px;flex:1;min-width:240px;}
+  .actu-date{
+    color:var(--gold-deep);font-weight:700;font-size:.78rem;text-transform:uppercase;
+    letter-spacing:.04em;margin-bottom:6px;display:block;
+  }
+  .actu-body h2{margin:0 0 10px;font-size:1.2rem;color:var(--green-deep);}
+  .actu-body p{margin:0;color:var(--ink-soft);font-size:.94rem;line-height:1.6;}
+  @media (max-width:700px){.actu-card img{width:100%;flex-basis:100%;height:200px;}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Aller au contenu</a>
+
+<header>
+  <div class="nav-row">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Logo de JVD">
+      <span class="brand-text">
+        <span class="brand-word">JVD</span>
+        <span class="brand-tag">Jeunes Volontaires pour le Développement</span>
+      </span>
+    </a>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+        <li><a href="actions.html">Nos actions</a></li>
+        <li><a href="actualites.html" aria-current="page">Actualités</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="rejoindre.html">Rejoindre</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" style="padding:56px 0 70px;">
+    <div class="wrap">
+      <span class="eyebrow">Actualités</span>
+      <h1 style="font-size:2.2rem;max-width:640px;">Ce que fait JVD, action après action</h1>
+      <p class="lead">Le récit de nos événements sur le terrain à Conakry.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div id="actu-state" class="gallery-state" style="display:none;text-align:center;padding:40px 20px;color:var(--ink-soft);">
+        <p>Aucune actualité pour le moment.</p>
+      </div>
+      <div id="actu-list" class="actu-list"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="logo.png" alt="Logo JVD">
+          <strong style="color:#fff;font-family:'Space Grotesk';font-size:1.05rem;">JVD</strong>
+        </div>
+        <p style="max-width:320px;font-size:.88rem;">Jeunes Volontaires pour le Développement — une jeunesse guinéenne engagée pour l'éducation, l'environnement, la santé et la protection de la femme.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="actions.html">Nos actions</a></li>
+          <li><a href="actualites.html">Actualités</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
+          <li><a href="rejoindre.html">Rejoindre</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Conakry, Guinée</li>
+          <li><a href="mailto:jeunesvolontairespourledevelop@gmail.com">jeunesvolontairespourledevelop@gmail.com</a></li>
+          <li><a href="https://wa.me/224625328450">+224 625 32 84 50</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 JVD — Jeunes Volontaires pour le Développement. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="assistant.js"></script>
+<script>
+// Lit le fichier actus.txt à la racine du dépôt et affiche chaque bloc comme une actualité
+(function () {
+  const OWNER = "jeunesvolontairespourledevelop-maker";
+  const REPO = "www.jvd.com";
+  const FILE = "actus.txt";
+
+  const list = document.getElementById("actu-list");
+  const state = document.getElementById("actu-state");
+
+  fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${FILE}?t=${Date.now()}`)
+    .then(r => { if (!r.ok) throw new Error("fichier introuvable"); return r.text(); })
+    .then(text => {
+      const blocks = text.split(/^---$/m).map(b => b.trim()).filter(Boolean);
+      if (blocks.length === 0) { state.style.display = "block"; return; }
+
+      blocks.reverse().forEach(block => {
+        const get = (field) => {
+          const m = block.match(new RegExp(field + ":\\s*(.*)"));
+          return m ? m[1].trim() : "";
+        };
+        const titre = get("TITRE") || "Actualité";
+        const date = get("DATE");
+        const texte = get("TEXTE");
+        const image = get("IMAGE");
+
+        const card = document.createElement("article");
+        card.className = "actu-card";
+        card.innerHTML = `
+          ${image ? `<img src="${image}" alt="${titre}">` : ""}
+          <div class="actu-body">
+            ${date ? `<span class="actu-date">${date}</span>` : ""}
+            <h2>${titre}</h2>
+            <p>${texte}</p>
+          </div>`;
+        list.appendChild(card);
+      });
+    })
+    .catch(() => { state.style.display = "block"; });
+})();
+</script>
+</body>
+</html>
